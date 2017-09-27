@@ -40,4 +40,8 @@
 
 
     <string name="deseja_sair">Deseja mesmo sair?</string>
+
+    <!-- pacientes -->
+    <string name="data_entrada">Data entrada:</string>
+    <string name="ultimo_atendimento">Último atendimento:</string>
 </resources>
