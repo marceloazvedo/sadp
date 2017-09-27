@@ -28,7 +28,6 @@ public class HomeFragment extends MyFragment {
                 Snackbar.make(v, "Essa krai deu certo!", Snackbar.LENGTH_LONG).show();
             }
         });
-
         return fragment;
     }
 

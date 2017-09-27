@@ -3,26 +3,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/pagina_inicial" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_pacientes"
+            android:icon="@drawable/ic_menu_pacientes"
+            android:title="@string/pacientes" />
     </group>
-
 
     <item android:title="@string/perfil">
         <menu>
-            <item
-                android:id="@+id/nav_perfil"
-                android:icon="@drawable/ic_menu_person"
-                android:title="@string/editar" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_perfil"
+                    android:icon="@drawable/ic_menu_person"
+                    android:title="@string/editar" />
+            </group>
             <item
                 android:id="@+id/nav_sair"
                 android:icon="@drawable/ic_menu_exit"

@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -45,8 +46,7 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        HomeFragment homeFragment = new HomeFragment();
-        FragmentManagerUtil.trocarFragment(this, R.id.frame_layout, homeFragment);
+        FragmentManagerUtil.trocarFragment(this, new HomeFragment());
     }
 
 
@@ -86,12 +86,12 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        if (id == R.id.nav_home) {
+            FragmentManagerUtil.trocarFragment(this, new HomeFragment());
+        } else if (id == R.id.nav_pacientes) {
+            FragmentManagerUtil.trocarFragment(this, new ListaPacientesFragment());
         } else if (id == R.id.nav_perfil) {
-
+            FragmentManagerUtil.trocarFragment(this, new PerfilFragment());
         } else if (id == R.id.nav_sair) {
             DialogFragment confirmarDialog = new ConfirmarDialog();
             confirmarDialog.show(getFragmentManager(), "missiles");
