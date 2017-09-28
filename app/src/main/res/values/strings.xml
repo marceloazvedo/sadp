@@ -40,8 +40,16 @@
 
 
     <string name="deseja_sair">Deseja mesmo sair?</string>
+    <string name="deseja_fechar">Deseja mesmo fechar o app?</string>
 
     <!-- pacientes -->
-    <string name="data_entrada">Data entrada:</string>
-    <string name="ultimo_atendimento">Último atendimento:</string>
+    <string name="data_entrada">Data entrada</string>
+    <string name="ultimo_atendimento">Último atendimento</string>
+    <string name="data_nascimento">Data de nascimento</string>
+
+    <string name="bem_vindo">Bem vindo!</string>
+
+    <string name="nome_paciente">Nome do paciente</string>
+
+    <string name="descricao">Descrição</string>
 </resources>

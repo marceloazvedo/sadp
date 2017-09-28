@@ -1,51 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:weightSum="1"
-    android:layout_margin="15dp">
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <TextView
-        android:id="@+id/nome_paciente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:text="Marcelo Santos de Azevedo"
-        android:layout_alignParentEnd="true"
-        android:textSize="20dp"
-        android:layout_marginBottom="10dp"/>
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/lb_data_entrada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nome_paciente"
-        android:text="@string/data_entrada" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
-    <TextView
-        android:id="@+id/lb_data_ultimo_atendimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/nome_paciente"
-        android:text="@string/ultimo_atendimento" />
+            <TextView
+                android:id="@+id/nome_paciente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:text="Marcelo Santos de Azevedo"
+                android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/data_entrada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lb_data_entrada"
-        android:text="12/04/1995" />
+            <TextView
+                android:id="@+id/lb_data_entrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/nome_paciente"
+                android:text="@string/data_entrada" />
 
-    <TextView
-        android:id="@+id/data_ultimo_atendimento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/lb_data_ultimo_atendimento"
-        android:text="26/08/2017" />
+            <TextView
+                android:id="@+id/lb_data_ultimo_atendimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/nome_paciente"
+                android:text="@string/ultimo_atendimento" />
+
+            <TextView
+                android:id="@+id/data_entrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/lb_data_entrada"
+                android:text="12/04/1995" />
+
+            <TextView
+                android:id="@+id/data_ultimo_atendimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/lb_data_ultimo_atendimento"
+                android:text="26/08/2017" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 
 </RelativeLayout>

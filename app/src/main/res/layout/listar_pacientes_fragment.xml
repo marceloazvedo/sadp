@@ -10,7 +10,9 @@
         android:id="@+id/pacientes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/float_add_paciente"
@@ -21,7 +23,6 @@
         android:layout_marginBottom="25dp"
         android:layout_marginEnd="33dp"
         android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_input_add"
- />
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_menu_add_imported" />
 </RelativeLayout>

@@ -1,9 +1,6 @@
 package tcc.marcelo.com.br.sadp.view;
 
-import android.app.Activity;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,23 +9,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import tcc.marcelo.com.br.sadp.R;
-import tcc.marcelo.com.br.sadp.dialog.ConfirmarDialog;
+import tcc.marcelo.com.br.sadp.view.dialog.FecharAppDialog;
+import tcc.marcelo.com.br.sadp.view.dialog.LogoutDialog;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
 
 /**
  * Created by Marcelo S. Azevedo on 26/09/2017.
  */
-public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +50,8 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            DialogFragment confirmarDialog = new FecharAppDialog();
+            confirmarDialog.show(getFragmentManager(), "missiles");
         }
     }
 
@@ -93,7 +88,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_perfil) {
             FragmentManagerUtil.trocarFragment(this, new PerfilFragment());
         } else if (id == R.id.nav_sair) {
-            DialogFragment confirmarDialog = new ConfirmarDialog();
+            DialogFragment confirmarDialog = new LogoutDialog();
             confirmarDialog.show(getFragmentManager(), "missiles");
         }
 
@@ -101,4 +96,5 @@ public class HomeActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

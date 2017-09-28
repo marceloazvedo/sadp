@@ -18,7 +18,7 @@ public class PerfilFragment extends MyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.perfil_fragment, container, false);
-
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("PERFIL");
         return fragment;
     }
 

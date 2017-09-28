@@ -12,9 +12,8 @@ import tcc.marcelo.com.br.sadp.model.Paciente;
 import tcc.marcelo.com.br.sadp.view.holder.PacienteHolder;
 
 /**
- * Created by GATI on 27/09/2017.
+ * Created by Marcelo S. de Azevedo on 27/09/2017.
  */
-
 public class PacientesAdapter extends RecyclerView.Adapter<PacienteHolder> {
 
     private List<Paciente> pacientes = new ArrayList<>();

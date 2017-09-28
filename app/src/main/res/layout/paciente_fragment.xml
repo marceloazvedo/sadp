@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textInputLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:id="@+id/txt_nome_paciente"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:ems="10"
+            android:hint="@string/nome_paciente"
+            android:inputType="textPersonName"
+            android:singleLine="true" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textInputLayout"
+        android:id="@+id/textInputLayout2">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/data_entrada"
+            android:inputType="date"
+            android:id="@+id/txt_data_entrada"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textInputLayout2"
+        android:id="@+id/textInputLayout4">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/data_nascimento"
+            android:inputType="date"
+            android:id="@+id/txt_data_nascimento"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textInputLayout4"
+        android:id="@+id/textInputLayout5">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="141dp"
+            android:hint="@string/descricao"
+            android:inputType="textMultiLine"
+            android:id="@+id/txt_descricao_paciente"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnCadastrarPaciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/cadastrar"
+        android:layout_alignParentEnd="true"/>
+
+
+</RelativeLayout>
