@@ -3,6 +3,7 @@ package tcc.marcelo.com.br.sadp.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,9 @@ public class ListaPacientesFragment extends MyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.listar_pacientes_fragment, container, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView = (RecyclerView) fragment.findViewById(R.id.pacientes_recycler_view);
+        recyclerView.setLayoutManager(linearLayoutManager);
         List<Paciente> pacientes = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             Paciente paciente = new Paciente();
