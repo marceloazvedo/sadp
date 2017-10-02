@@ -20,23 +20,16 @@ import tcc.marcelo.com.br.sadp.util.Mask;
  */
 public class PacienteFragment extends MyFragment {
 
+    private HomeActivity mainActivity = null;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.paciente_fragment, container, false);
-        HomeActivity mainActivity = ((HomeActivity) getActivity());
-
+        mainActivity = ((HomeActivity) getActivity());
 
         mainActivity.getSupportActionBar().setTitle("CADASTRAR PACIENTE");
-        mainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        Toolbar toolbar = (Toolbar) mainActivity.findViewById(R.id.toolbar);
-        DrawerLayout drawer = (DrawerLayout) mainActivity.findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                mainActivity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.set
-        toggle.setDrawerIndicatorEnabled(true);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        mainActivity.setDrawerState(false);
 
         EditText txtNome = (EditText) fragment.findViewById(R.id.txt_nome_paciente);
         EditText txtDataEntrada = (EditText) fragment.findViewById(R.id.txt_data_entrada);
@@ -45,6 +38,12 @@ public class PacienteFragment extends MyFragment {
         txtDataNascimento.addTextChangedListener(Mask.insert("##/##/####", txtDataNascimento));
         EditText txtDescricao = (EditText) fragment.findViewById(R.id.txt_descricao_paciente);
         return fragment;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mainActivity.setDrawerState(true);
     }
 
     @Override

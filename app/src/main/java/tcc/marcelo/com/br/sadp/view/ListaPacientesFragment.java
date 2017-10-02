@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,14 @@ import tcc.marcelo.com.br.sadp.view.adapter.PacientesAdapter;
 public class ListaPacientesFragment extends MyFragment {
 
     private RecyclerView recyclerView = null;
+    private HomeActivity mainActivity = null;
 
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.listar_pacientes_fragment, container, false);
-        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("PACIENTES");
+        mainActivity = (HomeActivity) getActivity();
+        mainActivity.getSupportActionBar().setTitle("PACIENTES");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView = (RecyclerView) fragment.findViewById(R.id.pacientes_recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);

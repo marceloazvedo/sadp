@@ -17,17 +17,17 @@ public class FragmentManagerUtil {
 
     private static FragmentManager fragmentManager = null;
     private static FragmentTransaction fragmentTransaction = null;
-    private static String oldFragmentTag = null;
 
     public static void trocarFragment(Activity activity, MyFragment nova) {
         fragmentManager = activity.getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        if (oldFragmentTag != null) {
-            Fragment fragment = fragmentManager.findFragmentByTag(oldFragmentTag);
-            fragmentTransaction.remove(fragment);
-        }
-        fragmentTransaction.add(R.id.frame_layout, nova, nova.getFragmentTag());
-        oldFragmentTag = nova.getFragmentTag();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.frame_layout, nova, nova.getFragmentTag());
         fragmentTransaction.commit();
+    }
+
+    public static void popBackStack(Activity activity) {
+        fragmentManager = activity.getFragmentManager();
+        fragmentManager.popBackStack();
     }
 }

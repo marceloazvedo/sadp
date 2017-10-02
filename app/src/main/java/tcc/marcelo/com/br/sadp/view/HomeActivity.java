@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.view.dialog.FecharAppDialog;
@@ -24,18 +27,29 @@ import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
  */
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Toolbar toolbar = null;
+    private DrawerLayout drawer = null;
+    private ActionBarDrawerToggle toggle = null;
+    private boolean isDrawerLocked = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManagerUtil.popBackStack(HomeActivity.this);
+            }
+        });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -47,11 +61,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        Log.i("INFO", "Drawer Locked: " + isDrawerLocked);
+        if(isDrawerLocked){
+            FragmentManagerUtil.popBackStack(this);
         } else {
-            DialogFragment confirmarDialog = new FecharAppDialog();
-            confirmarDialog.show(getFragmentManager(), "missiles");
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                DialogFragment confirmarDialog = new FecharAppDialog();
+                confirmarDialog.show(getFragmentManager(), "missiles");
+            }
         }
     }
 
@@ -68,6 +87,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Log.i("INFO", "ID selecionado: " + id);
 
         //noinspection SimplifiableIfStatement
         //if (id == R.id.action_settings) {
@@ -95,6 +115,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setDrawerState(boolean enable){
+        isDrawerLocked = !enable;
+        if(enable){
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            toggle.onDrawerStateChanged(DrawerLayout.LOCK_MODE_UNLOCKED);
+            toggle.setDrawerIndicatorEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        } else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            toggle.onDrawerStateChanged(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            toggle.setDrawerIndicatorEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        toggle.syncState();
+
     }
 
 }
