@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:design="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_atendimento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:elevation="3dp"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/material_nome_paciente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_nome_paciente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="@string/nome_paciente" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <View
+                android:id="@+id/dummy"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_below="@+id/material_nome_paciente"
+                android:layout_centerInParent="true" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/material_data_entrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/dummy"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/material_nome_paciente">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_data_entrada"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="@string/data_entrada" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/material_hora_termino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignRight="@+id/dummy"
+                android:layout_below="@+id/material_nome_paciente">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_data_ultimo_atendimento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="@string/ultimo_atendimento" />
+            </android.support.design.widget.TextInputLayout>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/lb_lista_atendimentos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv_atendimento"
+        android:layout_centerHorizontal="true"
+        android:text="@string/lista_atendimentos"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lb_lista_atendimentos"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        android:id="@+id/atendimentos_cv"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/bottom_navigation">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/atendimento_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/fundo">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="?android:attr/windowBackground"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/bottom_navigation_color_selector"
+        app:itemTextColor="@drawable/bottom_navigation_color_selector"
+        design:menu="@menu/bottom_nav_items" />
+
+</RelativeLayout>

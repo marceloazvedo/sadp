@@ -2,15 +2,24 @@ package tcc.marcelo.com.br.sadp.view.holder;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.model.Consulta;
 import tcc.marcelo.com.br.sadp.model.Paciente;
 import tcc.marcelo.com.br.sadp.view.HomeActivity;
+import tcc.marcelo.com.br.sadp.view.adapter.AtendimentoAdapter;
 import tcc.marcelo.com.br.sadp.view.adapter.PacientesAdapter;
 
 /**
@@ -24,6 +33,7 @@ public class PacienteHolder extends RecyclerView.ViewHolder implements View.OnLo
     private TextView dataUltimoAtendimento;
     private CardView cardView;
     private PacientesAdapter adapter;
+    private boolean selecionado = false;
 
     public PacienteHolder(View itemView){
         super(itemView);
@@ -31,6 +41,7 @@ public class PacienteHolder extends RecyclerView.ViewHolder implements View.OnLo
         nomePaciente = (TextView) itemView.findViewById(R.id.nome_paciente);
         dataEntrada= (TextView) itemView.findViewById(R.id.data_entrada);
         dataUltimoAtendimento = (TextView) itemView.findViewById(R.id.data_ultimo_atendimento);
+
         itemView.setOnLongClickListener(this);
     }
 
@@ -49,13 +60,17 @@ public class PacienteHolder extends RecyclerView.ViewHolder implements View.OnLo
     public boolean onLongClick(View v) {
 
         Activity activity = (Activity) itemView.getContext();
-        if(activity instanceof HomeActivity) {
-            HomeActivity homeActivity = (HomeActivity) activity;
-            homeActivity.preparaEditarPaciente(this.paciente);
-            homeActivity.supportInvalidateOptionsMenu();
-        }
+        HomeActivity homeActivity = (HomeActivity) activity;
 
-        adapter.setSelecionado(getAdapterPosition());
+        if(!selecionado) {
+            homeActivity.preparaEditarPaciente(this.paciente);
+            adapter.setSelecionado(getAdapterPosition());
+        } else {
+            adapter.setSelecionado(-1);
+            homeActivity.preparaEditarPaciente(null);
+        }
+        this.selecionado = !selecionado;
+        homeActivity.supportInvalidateOptionsMenu();
         adapter.notifyDataSetChanged();
 
         return false;

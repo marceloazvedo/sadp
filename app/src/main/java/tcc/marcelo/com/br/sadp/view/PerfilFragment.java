@@ -13,25 +13,14 @@ import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
 /**
  * Created by Marcelo S. de Azevedo on 27/09/2017.
  */
-
 public class PerfilFragment extends MyFragment {
 
-    private HomeActivity homeActivity = null;
+    private HomeActivity homeActivity;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View fragment = inflater.inflate(R.layout.perfil_fragment, container, false);
-        Button btnCadastrarPaciente = (Button) fragment.findViewById(R.id.btnCadastrarPaciente);
-
-        btnCadastrarPaciente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Aqui deve ser feito o cadastramento do paciente no web service
-                FragmentManagerUtil.popBackStack(PerfilFragment.this.homeActivity);
-            }
-        });
-
         homeActivity = (HomeActivity) getActivity();
         homeActivity.getSupportActionBar().setTitle("PERFIL");
         return fragment;

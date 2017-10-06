@@ -71,4 +71,15 @@ public class Paciente implements Serializable {
     public int hashCode() {
         return id.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dataEntrada='" + dataEntrada + '\'' +
+                ", dataNascimento='" + dataNascimento + '\'' +
+                ", descricao='" + descricao + '\'' +
+                '}';
+    }
 }

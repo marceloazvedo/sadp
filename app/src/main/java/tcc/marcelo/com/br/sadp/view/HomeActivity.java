@@ -17,6 +17,7 @@ import android.view.View;
 
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.model.Paciente;
+import tcc.marcelo.com.br.sadp.view.dialog.DeletarPacienteDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.FecharAppDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.LogoutDialog;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
@@ -86,10 +87,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(paciente != null){
             MenuItem delete = menu.findItem(R.id.menu_delete);
             delete.setVisible(true);
+            delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    DialogFragment confirmarDialog = new DeletarPacienteDialog();
+                    confirmarDialog.show(getFragmentManager(), "missiles");
+                    return false;
+                }
+            });
             MenuItem editar = menu.findItem(R.id.menu_editar);
             editar.setVisible(true);
+            editar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    FragmentManagerUtil.trocarFragment(HomeActivity.this, new PacienteFragment());
+                    return false;
+                }
+            });
             MenuItem visualizar = menu.findItem(R.id.menu_visualizar);
             visualizar.setVisible(true);
+            visualizar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    VisualizarPacienteFragment visualizarPacienteFragment = new VisualizarPacienteFragment();
+                    FragmentManagerUtil.trocarFragment(HomeActivity.this, visualizarPacienteFragment);
+                    return false;
+                }
+            });
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -100,7 +124,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Log.i("INFO", "ID selecionado: " + id);
 
         //noinspection SimplifiableIfStatement
         //if (id == R.id.action_settings) {
@@ -125,6 +148,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             confirmarDialog.show(getFragmentManager(), "missiles");
         }
 
+        preparaEditarPaciente(null);
+        supportInvalidateOptionsMenu();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -143,12 +169,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             toggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        preparaEditarPaciente(null);
+        supportInvalidateOptionsMenu();
         toggle.syncState();
-
     }
 
     public void preparaEditarPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
 
+    public Paciente getPaciente(){
+        return paciente;
+    }
 }

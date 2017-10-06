@@ -22,8 +22,8 @@ import tcc.marcelo.com.br.sadp.view.adapter.PacientesAdapter;
  */
 public class ListaPacientesFragment extends MyFragment {
 
-    private RecyclerView recyclerView = null;
-    private HomeActivity mainActivity = null;
+    private RecyclerView recyclerView;
+    private HomeActivity mainActivity;
 
     @Nullable
     @Override
@@ -35,7 +35,7 @@ public class ListaPacientesFragment extends MyFragment {
         recyclerView = (RecyclerView) fragment.findViewById(R.id.pacientes_recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         List<Paciente> pacientes = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 1; i < 11; i++) {
             Paciente paciente = new Paciente();
             paciente.setDataEntrada("12/04/201" + i);
             paciente.setDataNascimento("05/05/199" + i);
