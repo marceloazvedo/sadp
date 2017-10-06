@@ -5,19 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.model.Paciente;
 import tcc.marcelo.com.br.sadp.view.dialog.FecharAppDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.LogoutDialog;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
@@ -31,6 +30,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer = null;
     private ActionBarDrawerToggle toggle = null;
     private boolean isDrawerLocked = false;
+    private Paciente paciente = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,8 +77,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(paciente != null){
+            MenuItem delete = menu.findItem(R.id.menu_delete);
+            delete.setVisible(true);
+            MenuItem editar = menu.findItem(R.id.menu_editar);
+            editar.setVisible(true);
+            MenuItem visualizar = menu.findItem(R.id.menu_visualizar);
+            visualizar.setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -132,6 +145,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         toggle.syncState();
 
+    }
+
+    public void preparaEditarPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
 }

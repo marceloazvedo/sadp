@@ -10,6 +10,7 @@
             android:id="@+id/nav_pacientes"
             android:icon="@drawable/ic_menu_pacientes"
             android:title="@string/pacientes" />
+
     </group>
 
     <item android:title="@string/perfil">

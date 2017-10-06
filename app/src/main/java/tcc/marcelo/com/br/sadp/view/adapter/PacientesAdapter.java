@@ -1,6 +1,7 @@
 package tcc.marcelo.com.br.sadp.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -17,9 +18,11 @@ import tcc.marcelo.com.br.sadp.view.holder.PacienteHolder;
 public class PacientesAdapter extends RecyclerView.Adapter<PacienteHolder> {
 
     private List<Paciente> pacientes = new ArrayList<>();
+    private int selecionado;
 
     public PacientesAdapter(List<Paciente> pacientes){
         this.pacientes = pacientes;
+        this.selecionado = -1;
     }
 
     @Override
@@ -30,10 +33,21 @@ public class PacientesAdapter extends RecyclerView.Adapter<PacienteHolder> {
     @Override
     public void onBindViewHolder(PacienteHolder holder, int position) {
         holder.setPaciente(pacientes.get(position));
+        holder.setAdapter(this);
+        holder.setSelecionado(selecionado == position);
     }
 
     @Override
     public int getItemCount() {
         return pacientes != null ? pacientes.size() : 0;
     }
+
+    public int getSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(int selecionado) {
+        this.selecionado = selecionado;
+    }
+
 }
