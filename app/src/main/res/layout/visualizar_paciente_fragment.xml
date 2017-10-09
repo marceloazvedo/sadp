@@ -97,10 +97,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/lb_lista_atendimentos"
         android:layout_gravity="center"
-        android:elevation="3dp"
         android:id="@+id/atendimentos_cv"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_above="@+id/bottom_navigation">
 
@@ -120,10 +117,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="?android:attr/windowBackground"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@drawable/bottom_navigation_color_selector"
-        app:itemTextColor="@drawable/bottom_navigation_color_selector"
+        android:background="@color/colorPrimary"
+        design:itemTextColor="@color/cardview_light_background"
+        design:itemIconTint="@color/cardview_light_background"
         design:menu="@menu/bottom_nav_items" />
 
 </RelativeLayout>

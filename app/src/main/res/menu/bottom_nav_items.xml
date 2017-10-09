@@ -2,8 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_call"
+        android:id="@+id/menuitem_nova_consulta"
         android:icon="@drawable/ic_menu_add_imported"
-        android:title="@string/nova"
-        app:showAsAction="ifRoom" />
+        android:title="@string/nova_consulta"
+        app:showAsAction="ifRoom"
+        />
 </menu>
