@@ -1,18 +1,17 @@
 package tcc.marcelo.com.br.sadp.view;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,7 +21,6 @@ import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.model.Consulta;
 import tcc.marcelo.com.br.sadp.model.Paciente;
 import tcc.marcelo.com.br.sadp.view.adapter.AtendimentoAdapter;
-import tcc.marcelo.com.br.sadp.view.dialog.DeletarPacienteDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.IniciarConsultaDialog;
 
 /**
@@ -37,8 +35,7 @@ public class VisualizarPacienteFragment extends MyFragment {
     private TextInputEditText dataCadastro;
     private Paciente paciente;
     private RecyclerView atendimentoRecyclerView;
-    private BottomNavigationItemView novaConsulta;
-    private BottomNavigationView bottomNavigation;
+    private Button btnNovaConsulta;
 
     @Nullable
     @Override
@@ -53,6 +50,8 @@ public class VisualizarPacienteFragment extends MyFragment {
 
         homeActivity.getSupportActionBar().setTitle("VISUALIZAR PACIENTE");
         homeActivity.setDrawerState(false);
+        homeActivity.supportInvalidateOptionsMenu();
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         atendimentoRecyclerView = (RecyclerView) fragment.findViewById(R.id.atendimento_rv);
         atendimentoRecyclerView.setLayoutManager(linearLayoutManager);
@@ -67,9 +66,8 @@ public class VisualizarPacienteFragment extends MyFragment {
         }
         atendimentoRecyclerView.setAdapter(new AtendimentoAdapter(consultas));
 
-        bottomNavigation = (BottomNavigationView) fragment.findViewById(R.id.bottom_navigation);
-        novaConsulta = (BottomNavigationItemView) bottomNavigation.findViewById(R.id.menuitem_nova_consulta);
-        novaConsulta.setOnClickListener(new View.OnClickListener() {
+        btnNovaConsulta = (Button) fragment.findViewById(R.id.btn_nova_consulta);
+        btnNovaConsulta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IniciarConsultaDialog iniciarConsultaDialog = new IniciarConsultaDialog();
@@ -98,4 +96,13 @@ public class VisualizarPacienteFragment extends MyFragment {
     public String getFragmentTag() {
         return "VisualizarPacienteFragment";
     }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
 }

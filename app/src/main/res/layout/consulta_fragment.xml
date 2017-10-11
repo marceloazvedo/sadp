@@ -2,4 +2,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/lb_nome_paciente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Nome: Marcelo Santos de Azevedo"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/lb_outro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lb_nome_paciente"
+        android:text="TextView"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:layout_margin="10dp"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lb_outro"
+        android:layout_alignParentStart="true">
+
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tab_layout"/>
+
 </RelativeLayout>

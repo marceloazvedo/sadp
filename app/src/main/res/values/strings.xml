@@ -29,7 +29,7 @@
     <string name="pagina_inicial">Página Inicial</string>
     <string name="nova">Nova</string>
     <string name="novo">Novo</string>
-    <string name="nova_consulta">Nova consulta</string>
+    <string name="nova_consulta">NOVA CONSULTA</string>
 
 
     <string name="editar">Editar</string>
@@ -47,6 +47,7 @@
     <string name="deseja_fechar">Deseja mesmo fechar o app?</string>
     <string name="deseja_deletar_paciente">Deseja mesmo remover %s dos seus pacientes?</string>
     <string name="iniciar_nova_consulta">Deseja mesmo iniciar uma nova consulta?</string>
+    <string name="deseja_finalizar_consulta">Deseja mesmo finalizar a consulta?</string>
 
     <!-- pacientes -->
     <string name="data_entrada">Data entrada</string>
@@ -65,5 +66,8 @@
     <string name="hora_termino">Hora termino</string>
 
     <string name="lista_atendimentos">Lista de consultas</string>
+    <string name="sintomas">Lista de sintomas</string>
+    <string name="sintomas_selecionados">Sintomas selecionados</string>
+    <string name="finalizar_consulta">FINALIZAR CONSULTA</string>
 
 </resources>

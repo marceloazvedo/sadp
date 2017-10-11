@@ -6,4 +6,6 @@
 
     <color name="selecionado">#dedede</color>
     <color name="fundo">#f2f2f2</color>
+
+    <color name="branco">#ffffff</color>
 </resources>

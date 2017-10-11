@@ -31,6 +31,7 @@ public class ListaPacientesFragment extends MyFragment {
         View fragment = inflater.inflate(R.layout.listar_pacientes_fragment, container, false);
         mainActivity = (HomeActivity) getActivity();
         mainActivity.getSupportActionBar().setTitle("PACIENTES");
+        mainActivity.preparaEditarPaciente(null);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView = (RecyclerView) fragment.findViewById(R.id.pacientes_recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);

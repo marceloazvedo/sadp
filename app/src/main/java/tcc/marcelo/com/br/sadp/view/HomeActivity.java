@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if(paciente != null){
+        if(paciente != null && !isDrawerLocked){
             MenuItem delete = menu.findItem(R.id.menu_delete);
             delete.setVisible(true);
             delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -169,7 +169,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             toggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        preparaEditarPaciente(null);
         supportInvalidateOptionsMenu();
         toggle.syncState();
     }
@@ -181,4 +180,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     public Paciente getPaciente(){
         return paciente;
     }
+
 }
