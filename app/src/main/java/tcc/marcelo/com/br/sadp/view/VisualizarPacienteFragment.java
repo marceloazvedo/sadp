@@ -59,9 +59,9 @@ public class VisualizarPacienteFragment extends MyFragment {
         for (int i = 1; i < 11; i++) {
             Consulta consulta = new Consulta();
             consulta.setDescricao("TESTE, 1,2,3, TESTE!");
-            consulta.setHoraTermino(Calendar.getInstance());
-            consulta.setHoraInicio(Calendar.getInstance());
-            consulta.setDataConsulta(Calendar.getInstance());
+            consulta.setHoraTermino(Calendar.getInstance().getTime());
+            consulta.setHoraInicio(Calendar.getInstance().getTime());
+            consulta.setDataConsulta(Calendar.getInstance().getTime());
             consultas.add(consulta);
         }
         atendimentoRecyclerView.setAdapter(new AtendimentoAdapter(consultas));

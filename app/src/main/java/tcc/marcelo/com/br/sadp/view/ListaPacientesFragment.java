@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.model.Paciente;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
@@ -36,6 +39,9 @@ public class ListaPacientesFragment extends MyFragment {
         recyclerView = (RecyclerView) fragment.findViewById(R.id.pacientes_recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
         List<Paciente> pacientes = new ArrayList<>();
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<Paciente> result = realm.where(Paciente.class).findAll();
+        Log.i("INFO", "Tamanho: " + result.size());
         for (int i = 1; i < 11; i++) {
             Paciente paciente = new Paciente();
             paciente.setDataEntrada("12/04/201" + i);

@@ -3,11 +3,16 @@ package tcc.marcelo.com.br.sadp.model;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
+
 /**
  * Created by Marcelo S. de Azevedo on 27/09/2017.
  */
-public class Paciente implements Serializable {
+public class Paciente extends RealmObject implements Serializable {
 
+    @PrimaryKey @Required
     private Long id;
     private String nome;
     private String dataEntrada;

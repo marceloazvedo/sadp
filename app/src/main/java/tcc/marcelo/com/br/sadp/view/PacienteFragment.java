@@ -14,10 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.ParseException;
+
+import io.realm.Realm;
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.model.Paciente;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
 import tcc.marcelo.com.br.sadp.util.Mask;
+import tcc.marcelo.com.br.sadp.util.StringUtil;
 
 /**
  * Created by Marcelo S. de Azevedo on 28/09/2017.
@@ -59,9 +63,22 @@ public class PacienteFragment extends MyFragment {
         btnCadastrarAtualizarPaciente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (paciente == null) {
-                    FragmentManagerUtil.popBackStack(mainActivity);
-                }
+                final Paciente p = new Paciente();
+                p.setNome(txtNome.getText().toString());
+                p.setDescricao(txtDescricao.getText().toString());
+                p.setDataEntrada(txtDataEntrada.getText().toString());
+                p.setDataNascimento(txtDataNascimento.getText().toString());
+                Realm realm = Realm.getDefaultInstance();
+                realm.executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        Number currentIdNum = realm.where(Paciente.class).max("id");
+                        Long id = currentIdNum == null ? 1 : currentIdNum.longValue() + 1;
+                        p.setId(id);
+                        realm.copyToRealmOrUpdate(p);
+                        FragmentManagerUtil.popBackStack(mainActivity);
+                    }
+                });
             }
         });
         return fragment;

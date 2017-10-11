@@ -77,7 +77,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:text="@string/cadastrar"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:theme="@style/PrimaryButton"/>
 
 
 </RelativeLayout>

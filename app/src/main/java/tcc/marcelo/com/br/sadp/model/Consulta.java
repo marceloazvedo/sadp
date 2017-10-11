@@ -1,23 +1,29 @@
 package tcc.marcelo.com.br.sadp.model;
 
-import java.util.Calendar;
+import java.io.Serializable;
+import java.util.Date;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by Marcelo S. de Azevedo on 06/10/2017.
  */
-public class Consulta {
+public class Consulta extends RealmObject implements Serializable {
 
+    @PrimaryKey @Required
     private Long id;
-    private Calendar dataConsulta;
-    private Calendar horaInicio;
-    private Calendar horaTermino;
+    private Date dataConsulta;
+    private Date horaInicio;
+    private Date horaTermino;
     private String descricao;
 
-    public Calendar getDataConsulta() {
+    public Date getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setDataConsulta(Calendar dataConsulta) {
+    public void setDataConsulta(Date dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
 
@@ -29,19 +35,19 @@ public class Consulta {
         this.id = id;
     }
 
-    public Calendar getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Calendar horaInicio) {
+    public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Calendar getHoraTermino() {
+    public Date getHoraTermino() {
         return horaTermino;
     }
 
-    public void setHoraTermino(Calendar horaTermino) {
+    public void setHoraTermino(Date horaTermino) {
         this.horaTermino = horaTermino;
     }
 
