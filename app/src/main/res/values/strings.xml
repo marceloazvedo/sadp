@@ -10,7 +10,7 @@
     <string name="error_invalid_email">E-mail é inválido</string>
     <string name="error_invalid_password">Senha é inválida</string>
     <string name="error_incorrect_password">A senha está errada</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="error_field_required">Insira um valor</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>

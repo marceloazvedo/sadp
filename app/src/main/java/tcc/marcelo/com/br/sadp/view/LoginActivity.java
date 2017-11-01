@@ -3,6 +3,7 @@ package tcc.marcelo.com.br.sadp.view;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -27,11 +28,21 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.dto.LoginDTO;
+import tcc.marcelo.com.br.sadp.dto.UsuarioDTO;
+import tcc.marcelo.com.br.sadp.service.IAuthenticationService;
 import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -53,6 +64,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
+    private View focusView;
+    private ProgressDialog mProgress;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -62,15 +76,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private SharedPreferencesUtil sharedPreferencesUtil;
+    private IAuthenticationService authenticationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://sadp-service.herokuapp.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        authenticationService = retrofit.create(IAuthenticationService.class);
+
         setContentView(R.layout.login_activity);
         // Set up the login form.
         sharedPreferencesUtil = new SharedPreferencesUtil(this);
         String token = sharedPreferencesUtil.getTokenApp();
-        if(token != null && token.equals("ABCDEF")){
+        if (token != null && token.equals("ABCDEF")) {
             startHomeActivity();
         }
         mLoginView = (EditText) findViewById(R.id.login);
@@ -156,40 +179,56 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String login = mLoginView.getText().toString();
         String senha = mSenhaView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
+        boolean continuar = true;
+        focusView = null;
 
-        // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(senha)) {
             mLoginView.setError(getString(R.string.error_field_required));
-            focusView = mLoginView;
-            cancel = true;
-        } else if (!isSenhaValid(senha)) {
-            mSenhaView.setError(getString(R.string.error_invalid_password));
             focusView = mSenhaView;
-            cancel = true;
+            continuar = false;
         }
-
-        // Check for a valid email address.
         if (TextUtils.isEmpty(login)) {
             mLoginView.setError(getString(R.string.error_field_required));
             focusView = mLoginView;
-            cancel = true;
-        } else if (!isLoginValid(login)) {
-            mLoginView.setError(getString(R.string.erro_login_invalido));
-            focusView = mLoginView;
-            cancel = true;
+            continuar = false;
         }
 
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
+        if(continuar){
+            mProgress = ProgressDialog.show(this, "", "Aguarde");
+            Call<UsuarioDTO> call = authenticationService.login(new LoginDTO(login, senha));
+            call.enqueue(new Callback<UsuarioDTO>() {
+                @Override
+                public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
+                    UsuarioDTO usuario = response.body();
+                    if(usuario.getCodigo().equals("000")){
+                        Toast.makeText(LoginActivity.this, "Seja bem vindo " + usuario.getNome(), Toast.LENGTH_SHORT).show();
+                        sharedPreferencesUtil.addString(SharedPreferencesUtil.TOKEN, usuario.getToken());
+                        startHomeActivity();
+                    } else {
+                        // Check for a valid password, if the user entered one.
+                        if (usuario.getCodigo().equals("003")) {
+                            mSenhaView.setError(getString(R.string.error_invalid_password));
+                            focusView = mSenhaView;
+                        }
+
+                        // Check for a valid email address.
+                        if (usuario.getCodigo().equals("002")) {
+                            mLoginView.setError(getString(R.string.erro_login_invalido));
+                            focusView = mLoginView;
+                        }
+                        mProgress.dismiss();
+                        focusView.requestFocus();
+                    }
+                }
+                @Override
+                public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+                    mProgress.dismiss();
+                }
+            });
         } else {
-            // Tudo dando certo executa isso aqui!
-            sharedPreferencesUtil.addString(SharedPreferencesUtil.TOKEN, "ABCDEF");
-            startHomeActivity();
+            focusView.requestFocus();
         }
+
     }
 
     private boolean isLoginValid(String login) {
@@ -244,7 +283,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    private void startHomeActivity(){
+    private void startHomeActivity() {
         Intent startMain = new Intent(this, HomeActivity.class);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
