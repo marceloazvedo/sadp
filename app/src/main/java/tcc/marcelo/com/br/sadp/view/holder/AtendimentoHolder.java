@@ -53,9 +53,9 @@ public class AtendimentoHolder extends RecyclerView.ViewHolder implements View.O
 
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
-        this.dataConsulta.setText(StringUtil.getData(consulta.getDataConsulta()));
-        this.horaInicio.setText(StringUtil.getHora(consulta.getHoraTermino()));
-        this.horaTermino.setText(StringUtil.getHora(consulta.getHoraTermino()));
+        this.dataConsulta.setText(consulta.getDataConsulta());
+        this.horaInicio.setText(consulta.getHoraTermino());
+        this.horaTermino.setText(consulta.getHoraTermino());
         this.descricao.setText(consulta.getDescricao());
     }
 }

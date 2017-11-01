@@ -1,5 +1,7 @@
 package tcc.marcelo.com.br.sadp.view.tab;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,36 +16,91 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.dto.CaracteristicasResponse;
+import tcc.marcelo.com.br.sadp.dto.ConsultasResponse;
 import tcc.marcelo.com.br.sadp.model.Sintoma;
+import tcc.marcelo.com.br.sadp.parser.ConsultaParser;
+import tcc.marcelo.com.br.sadp.parser.SintomaParser;
+import tcc.marcelo.com.br.sadp.service.IPsiquiatraService;
+import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
+import tcc.marcelo.com.br.sadp.view.adapter.AtendimentoAdapter;
 import tcc.marcelo.com.br.sadp.view.adapter.SintomaAdapter;
+import tcc.marcelo.com.br.sadp.view.dialog.ErroConexaoDialog;
 
 import static android.R.attr.fragment;
 
 /**
  * Created by marcelo on 10/10/17.
  */
-
 public class SelecaoSintomaTab extends Fragment {
+
+    private IPsiquiatraService psiquiatraService;
+    private ProgressDialog mProgress;
+    private SharedPreferencesUtil sharedPreferencesUtil;
+    private List<Sintoma> sintomas;
+    private View view;
+    private RecyclerView recyclerViewSintomas;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tab_selecao_sintomas, container, false);
+        view = inflater.inflate(R.layout.tab_selecao_sintomas, container, false);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(view.getContext(), 2);
-        RecyclerView recyclerViewSintomas = (RecyclerView) view.findViewById(R.id.rv_lista_sintomas);
+        recyclerViewSintomas = (RecyclerView) view.findViewById(R.id.rv_lista_sintomas);
         recyclerViewSintomas.setItemAnimator(new DefaultItemAnimator());
         recyclerViewSintomas.setLayoutManager(layoutManager);
-        List<Sintoma> sintomas = new ArrayList<>();
-        for(int i = 0; i< 30; i++){
-            Sintoma sintoma = new Sintoma();
-            sintoma.setDescrica("qualquer");
-            sintoma.setId(new Long(i));
-            sintomas.add(sintoma);
-        }
+
         recyclerViewSintomas.setAdapter(new SintomaAdapter(sintomas));
 
+        buscarSintomas();
+
         return view;
+    }
+
+    public void buscarSintomas(){
+        mProgress = ProgressDialog.show(view.getContext(), "", getResources().getString(R.string.sincronizando));
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://sadp-service.herokuapp.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        psiquiatraService = retrofit.create(IPsiquiatraService.class);
+        sharedPreferencesUtil = new SharedPreferencesUtil(view.getContext());
+
+        Call<CaracteristicasResponse> call = psiquiatraService.getCaracteristicas(sharedPreferencesUtil.getTokenApp());
+        call.enqueue(new Callback<CaracteristicasResponse>() {
+            @Override
+            public void onResponse(Call<CaracteristicasResponse> call, Response<CaracteristicasResponse> response) {
+                CaracteristicasResponse body = response.body();
+
+                sintomas = SintomaParser.parserList(body.getCaracteristicas());
+                recyclerViewSintomas.setAdapter(new SintomaAdapter(sintomas));
+
+                mProgress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<CaracteristicasResponse> call, Throwable t) {
+                mProgress.dismiss();
+                ErroConexaoDialog erroConexaoDialog = new ErroConexaoDialog();
+                Activity activity = (Activity) view.getContext();
+                erroConexaoDialog.show(activity.getFragmentManager(), "missiles");
+            }
+        });
+    }
+
+    public List<Sintoma> getSintomas() {
+        return sintomas;
+    }
+
+    public void setSintomas(List<Sintoma> sintomas) {
+        this.sintomas = sintomas;
     }
 }

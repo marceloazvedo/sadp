@@ -13,7 +13,7 @@ import io.realm.annotations.Required;
 public class Paciente extends RealmObject implements Serializable {
 
     @PrimaryKey @Required
-    private Long id;
+    private String id;
     private String nome;
     private String dataEntrada;
     private String dataNascimento;
@@ -21,11 +21,11 @@ public class Paciente extends RealmObject implements Serializable {
 
     public Paciente(){}
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

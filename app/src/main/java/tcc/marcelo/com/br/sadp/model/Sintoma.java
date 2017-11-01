@@ -12,14 +12,14 @@ import io.realm.annotations.Required;
 public class Sintoma extends RealmObject implements Serializable {
 
     @PrimaryKey @Required
-    private Long id;
+    private String id;
     private String descrica;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

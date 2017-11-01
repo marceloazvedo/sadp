@@ -40,6 +40,7 @@
 
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
+    <string name="ok">OK</string>
 
 
     <!-- Mensagens dialog -->
@@ -48,6 +49,8 @@
     <string name="deseja_deletar_paciente">Deseja mesmo remover %s dos seus pacientes?</string>
     <string name="iniciar_nova_consulta">Deseja mesmo iniciar uma nova consulta?</string>
     <string name="deseja_finalizar_consulta">Deseja mesmo finalizar a consulta?</string>
+    <string name="erro_conexao">Problema na conexão com o servidor</string>
+    <string name="sincronizando">Sincronizando, aguarde!</string>
 
     <!-- pacientes -->
     <string name="data_entrada">Data entrada</string>

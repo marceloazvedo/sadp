@@ -30,6 +30,8 @@ public class FinalizarConsultaTab extends Fragment {
 
     private Button btnFinalizarConsulta;
     private HomeActivity homeActivity;
+    private List<Sintoma> sintomasSelecionados;
+    private RecyclerView recyclerViewSintomas;
 
     @Nullable
     @Override
@@ -38,17 +40,12 @@ public class FinalizarConsultaTab extends Fragment {
         homeActivity = (HomeActivity) getActivity();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-        RecyclerView recyclerViewSintomas = (RecyclerView) view.findViewById(R.id.rv_sintomas_selecionados);
+        recyclerViewSintomas = (RecyclerView) view.findViewById(R.id.rv_sintomas_selecionados);
         recyclerViewSintomas.setItemAnimator(new DefaultItemAnimator());
         recyclerViewSintomas.setLayoutManager(linearLayoutManager);
-        List<Sintoma> sintomas = new ArrayList<>();
-        for(int i = 0; i< 5; i++){
-            Sintoma sintoma = new Sintoma();
-            sintoma.setDescrica("qualquer");
-            sintoma.setId(new Long(i));
-            sintomas.add(sintoma);
-        }
-        recyclerViewSintomas.setAdapter(new SintomaAdapter(sintomas));
+
+        recyclerViewSintomas.setAdapter(new SintomaAdapter(sintomasSelecionados));
+
 
         btnFinalizarConsulta = (Button) view.findViewById(R.id.btn_finalizar_consulta);
         btnFinalizarConsulta.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +55,14 @@ public class FinalizarConsultaTab extends Fragment {
                 confirmarDialog.show(homeActivity.getFragmentManager(), "missiles");
             }
         });
-
-
         return view;
+    }
+
+    public List<Sintoma> getSintomasSelecionados() {
+        return sintomasSelecionados;
+    }
+
+    public void setSintomasSelecionados(List<Sintoma> sintomasSelecionados) {
+        this.sintomasSelecionados = sintomasSelecionados;
     }
 }

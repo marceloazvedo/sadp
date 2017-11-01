@@ -23,4 +23,8 @@ public class StringUtil {
         return new SimpleDateFormat("dd/MM/yyyy").parse(data);
     }
 
+    public static Date getDataJSON(String data) throws ParseException {
+        return new SimpleDateFormat("yyyy-MM-dd").parse(data);
+    }
+
 }

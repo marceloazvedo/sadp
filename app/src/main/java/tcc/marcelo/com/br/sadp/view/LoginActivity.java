@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         sharedPreferencesUtil = new SharedPreferencesUtil(this);
         String token = sharedPreferencesUtil.getTokenApp();
-        if (token != null && token.equals("ABCDEF")) {
+        if (token != null) {
             startHomeActivity();
         }
         mLoginView = (EditText) findViewById(R.id.login);

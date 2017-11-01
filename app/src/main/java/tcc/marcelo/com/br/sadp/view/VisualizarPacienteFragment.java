@@ -1,5 +1,6 @@
 package tcc.marcelo.com.br.sadp.view;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
@@ -17,10 +18,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.dto.ConsultaDTO;
+import tcc.marcelo.com.br.sadp.dto.ConsultasResponse;
 import tcc.marcelo.com.br.sadp.model.Consulta;
 import tcc.marcelo.com.br.sadp.model.Paciente;
+import tcc.marcelo.com.br.sadp.parser.ConsultaParser;
+import tcc.marcelo.com.br.sadp.service.IPsiquiatraService;
+import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
+import tcc.marcelo.com.br.sadp.util.StringUtil;
 import tcc.marcelo.com.br.sadp.view.adapter.AtendimentoAdapter;
+import tcc.marcelo.com.br.sadp.view.dialog.ErroConexaoDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.IniciarConsultaDialog;
 
 /**
@@ -36,6 +49,10 @@ public class VisualizarPacienteFragment extends MyFragment {
     private Paciente paciente;
     private RecyclerView atendimentoRecyclerView;
     private Button btnNovaConsulta;
+    private IPsiquiatraService psiquiatraService;
+    private ProgressDialog mProgress;
+    private SharedPreferencesUtil sharedPreferencesUtil;
+    private List<Consulta> consultas;
 
     @Nullable
     @Override
@@ -55,16 +72,8 @@ public class VisualizarPacienteFragment extends MyFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         atendimentoRecyclerView = (RecyclerView) fragment.findViewById(R.id.atendimento_rv);
         atendimentoRecyclerView.setLayoutManager(linearLayoutManager);
-        List<Consulta> consultas = new ArrayList<>();
-        for (int i = 1; i < 11; i++) {
-            Consulta consulta = new Consulta();
-            consulta.setDescricao("TESTE, 1,2,3, TESTE!");
-            consulta.setHoraTermino(Calendar.getInstance().getTime());
-            consulta.setHoraInicio(Calendar.getInstance().getTime());
-            consulta.setDataConsulta(Calendar.getInstance().getTime());
-            consultas.add(consulta);
-        }
-        atendimentoRecyclerView.setAdapter(new AtendimentoAdapter(consultas));
+
+        buscarConsultas();
 
         btnNovaConsulta = (Button) fragment.findViewById(R.id.btn_nova_consulta);
         btnNovaConsulta.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +112,37 @@ public class VisualizarPacienteFragment extends MyFragment {
 
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public void buscarConsultas(){
+        mProgress = ProgressDialog.show(homeActivity, "", getResources().getString(R.string.sincronizando));
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://sadp-service.herokuapp.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        psiquiatraService = retrofit.create(IPsiquiatraService.class);
+        sharedPreferencesUtil = new SharedPreferencesUtil(homeActivity);
+
+        Call<ConsultasResponse> call = psiquiatraService.getConsultas(sharedPreferencesUtil.getTokenApp(), paciente.getId());
+        call.enqueue(new Callback<ConsultasResponse>() {
+            @Override
+            public void onResponse(Call<ConsultasResponse> call, Response<ConsultasResponse> response) {
+                ConsultasResponse body = response.body();
+
+                consultas = ConsultaParser.parserList(body.getConsultas());
+                atendimentoRecyclerView.setAdapter(new AtendimentoAdapter(consultas));
+
+                mProgress.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ConsultasResponse> call, Throwable t) {
+                mProgress.dismiss();
+                ErroConexaoDialog erroConexaoDialog = new ErroConexaoDialog();
+                erroConexaoDialog.show(getFragmentManager(), "missiles");
+            }
+        });
     }
 
 }

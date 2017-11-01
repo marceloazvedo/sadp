@@ -38,23 +38,14 @@ public class ListaPacientesFragment extends MyFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(fragment.getContext());
         recyclerView = (RecyclerView) fragment.findViewById(R.id.pacientes_recycler_view);
         recyclerView.setLayoutManager(linearLayoutManager);
-        List<Paciente> pacientes = new ArrayList<>();
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Paciente> result = realm.where(Paciente.class).findAll();
         Log.i("INFO", "Tamanho: " + result.size());
-        for (int i = 1; i < 11; i++) {
-            Paciente paciente = new Paciente();
-            paciente.setDataEntrada("12/04/201" + i);
-            paciente.setDataNascimento("05/05/199" + i);
-            paciente.setDescricao("testando essa buceta");
-            paciente.setNome("Marcelo " + i);
-            pacientes.add(paciente);
+        List<Paciente> pacientes = realm.copyFromRealm(result);
+        for(Paciente p : pacientes){
+            Log.i("INFO", p.toString());
         }
         recyclerView.setAdapter(new PacientesAdapter(pacientes));
-
-        // Caso seja necessário adicionar um divisor entre as linhas do recyclerview
-        //recyclerView.addItemDecoration(
-        //        new DividerItemDecoration(fragment.getContext(), DividerItemDecoration.VERTICAL));
 
         FloatingActionButton floatingButtonAddPaciente = (FloatingActionButton) fragment.findViewById(R.id.float_add_paciente);
         floatingButtonAddPaciente.setOnClickListener(new View.OnClickListener() {

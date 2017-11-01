@@ -9,23 +9,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.model.Sintoma;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
 import tcc.marcelo.com.br.sadp.view.adapter.MyPagerAdapter;
 
 /**
- * Created by GATI on 09/10/2017.
+ * Created by marcelo on 09/10/2017.
  */
-
 public class ConsultaFragment extends MyFragment {
 
     private HomeActivity homeActivity;
+    private List<Sintoma> sintomas;
+    private List<Sintoma> sintomasSelecionados;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View fragment = inflater.inflate(R.layout.consulta_fragment, container, false);
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("SADP");
+        sintomas = new ArrayList<>();
+        sintomasSelecionados = new ArrayList<>();
 
         homeActivity =(HomeActivity) getActivity();
         homeActivity.setDrawerState(false);
@@ -37,7 +44,7 @@ public class ConsultaFragment extends MyFragment {
 
         final ViewPager viewPager = (ViewPager) fragment.findViewById(R.id.pager);
 
-        MyPagerAdapter adapter = new MyPagerAdapter(homeActivity.getSupportFragmentManager(), tabLayout.getTabCount());
+        MyPagerAdapter adapter = new MyPagerAdapter(homeActivity.getSupportFragmentManager(), tabLayout.getTabCount(), sintomas, sintomasSelecionados);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

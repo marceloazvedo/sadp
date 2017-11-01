@@ -8,46 +8,46 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
 /**
- * Created by Marcelo S. de Azevedo on 06/10/2017.
+ * Created by marcelo on 06/10/2017.
  */
 public class Consulta extends RealmObject implements Serializable {
 
     @PrimaryKey @Required
-    private Long id;
-    private Date dataConsulta;
-    private Date horaInicio;
-    private Date horaTermino;
+    private String id;
+    private String dataConsulta;
+    private String horaInicio;
+    private String horaTermino;
     private String descricao;
 
-    public Date getDataConsulta() {
+    public String getDataConsulta() {
         return dataConsulta;
     }
 
-    public void setDataConsulta(Date dataConsulta) {
+    public void setDataConsulta(String dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Date getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Date horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Date getHoraTermino() {
+    public String getHoraTermino() {
         return horaTermino;
     }
 
-    public void setHoraTermino(Date horaTermino) {
+    public void setHoraTermino(String horaTermino) {
         this.horaTermino = horaTermino;
     }
 

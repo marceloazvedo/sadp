@@ -14,7 +14,6 @@ import tcc.marcelo.com.br.sadp.view.holder.SintomaHolder;
 /**
  * Created by marcelo on 10/10/17.
  */
-
 public class SintomaAdapter extends RecyclerView.Adapter<SintomaHolder> {
 
     private List<Sintoma> sintomas = new ArrayList<>();
@@ -30,6 +29,7 @@ public class SintomaAdapter extends RecyclerView.Adapter<SintomaHolder> {
 
     @Override
     public void onBindViewHolder(SintomaHolder holder, int position) {
+        holder.setSintoma(sintomas.get(position));
     }
 
     @Override

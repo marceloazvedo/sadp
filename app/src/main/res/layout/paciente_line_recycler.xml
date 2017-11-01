@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/nome_paciente"
-                android:text="@string/ultimo_atendimento" />
+                android:text="@string/data_nascimento" />
 
             <TextView
                 android:id="@+id/data_entrada"
