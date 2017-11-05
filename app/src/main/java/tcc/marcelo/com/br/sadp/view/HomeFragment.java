@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import tcc.marcelo.com.br.sadp.dto.PacientesRespone;
 import tcc.marcelo.com.br.sadp.model.Paciente;
 import tcc.marcelo.com.br.sadp.parser.PacienteParser;
 import tcc.marcelo.com.br.sadp.service.IPsiquiatraService;
+import tcc.marcelo.com.br.sadp.util.ActivityUtil;
 import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
 
 /**
@@ -70,14 +72,17 @@ public class HomeFragment extends MyFragment {
                 realm.beginTransaction();
                 realm.deleteAll();
 
-                PacientesRespone pacientesRespone = response.body();
-                List<Paciente> pacientes = PacienteParser.parserList(pacientesRespone.getPacientes());
-                for(Paciente paciente : pacientes){
-                    realm.copyToRealm(paciente);
+                if(response.code() == 401){
+                    ActivityUtil.logout(mainActivity);
+                } else {
+                    PacientesRespone pacientesRespone = response.body();
+                    List<Paciente> pacientes = PacienteParser.parserList(pacientesRespone.getPacientes());
+                    for(Paciente paciente : pacientes){
+                        realm.copyToRealm(paciente);
+                    }
+                    mProgress.dismiss();
                 }
-
                 realm.commitTransaction();
-                mProgress.dismiss();
             }
 
             @Override

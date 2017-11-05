@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,11 +13,32 @@
         android:text="@string/sintomas_selecionados"
         android:layout_margin="5dp"/>]
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/lb_lista_sintomas">
+
+        <EditText
+            android:id="@+id/txt_descricao_consulta"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/descricao" />
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/img_btn_sincronizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_popup_sync"
+        android:layout_below="@+id/input_layout_descricao"
+        android:layout_centerHorizontal="true" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_sintomas_selecionados"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/lb_lista_sintomas"
+        android:layout_below="@+id/img_btn_sincronizar"
         android:layout_above="@+id/btn_finalizar_consulta" />
 
     <Button

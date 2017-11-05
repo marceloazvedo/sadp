@@ -8,7 +8,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cv_sintoma"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
         android:elevation="3dp"
         card_view:cardCornerRadius="8dp"
@@ -27,39 +27,38 @@
                 android:layout_above="@+id/btns_container"
                 android:text="Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker."/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/btns_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true">
-
-                <ImageButton
-                    android:id="@+id/btn_remover_sintoma"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_delete_red" />
-
-                <ImageButton
-                    android:id="@+id/btn_visualizar_sintoma"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_search_black"/>
+                android:layout_alignParentEnd="true"
+                android:gravity="center">
 
                 <ImageButton
                     android:id="@+id/btn_add_sintoma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="?selectableItemBackground"
                     android:src="@drawable/ic_menu_add_imported"
-                    android:layout_margin="5dp"
-                    android:tint="@color/colorAccent"/>
+                    android:tint="@color/colorAccent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
 
-            </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btn_remover_sintoma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_delete_red"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

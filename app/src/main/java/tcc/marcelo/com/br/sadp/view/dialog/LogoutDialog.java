@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.util.ActivityUtil;
 import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
 import tcc.marcelo.com.br.sadp.view.LoginActivity;
 
@@ -23,13 +24,7 @@ public class LogoutDialog extends DialogFragment {
         builder.setMessage(R.string.deseja_sair)
                 .setPositiveButton(R.string.sim, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        SharedPreferencesUtil sharedPreferencesUtil = new SharedPreferencesUtil(getActivity());
-                        sharedPreferencesUtil.limpar();
-                        Intent startLoginActivity = new Intent(getActivity(), LoginActivity.class);
-                        startLoginActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        getActivity().finishAffinity();
-                        startActivity(startLoginActivity);
-
+                        ActivityUtil.logout(getActivity());
                     }
                 })
                 .setNegativeButton(R.string.nao, new DialogInterface.OnClickListener() {

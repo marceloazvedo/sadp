@@ -1,5 +1,7 @@
 package tcc.marcelo.com.br.sadp.view;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -12,10 +14,21 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import tcc.marcelo.com.br.sadp.R;
+import tcc.marcelo.com.br.sadp.dto.CaracteristicasResponse;
 import tcc.marcelo.com.br.sadp.model.Sintoma;
+import tcc.marcelo.com.br.sadp.parser.SintomaParser;
+import tcc.marcelo.com.br.sadp.service.IPsiquiatraService;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
+import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
 import tcc.marcelo.com.br.sadp.view.adapter.MyPagerAdapter;
+import tcc.marcelo.com.br.sadp.view.adapter.SintomaAdapter;
+import tcc.marcelo.com.br.sadp.view.dialog.ErroConexaoDialog;
 
 /**
  * Created by marcelo on 09/10/2017.
@@ -31,6 +44,7 @@ public class ConsultaFragment extends MyFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View fragment = inflater.inflate(R.layout.consulta_fragment, container, false);
         ((HomeActivity) getActivity()).getSupportActionBar().setTitle("SADP");
+        String idPaciente = getArguments().getString("paciente");
         sintomas = new ArrayList<>();
         sintomasSelecionados = new ArrayList<>();
 
@@ -44,7 +58,7 @@ public class ConsultaFragment extends MyFragment {
 
         final ViewPager viewPager = (ViewPager) fragment.findViewById(R.id.pager);
 
-        MyPagerAdapter adapter = new MyPagerAdapter(homeActivity.getSupportFragmentManager(), tabLayout.getTabCount(), sintomas, sintomasSelecionados);
+        MyPagerAdapter adapter = new MyPagerAdapter(homeActivity.getSupportFragmentManager(), tabLayout.getTabCount(), idPaciente);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

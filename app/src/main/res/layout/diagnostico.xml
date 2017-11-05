@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+
+    <TextView
+        android:id="@+id/lb_paciente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/paciente" />
+
+    <TextView
+        android:id="@+id/lb_nome_paciente_diagnostico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lb_paciente"
+        android:text="Marcelo Santos de Azevedo"
+        android:textSize="23dp"/>
+
+    <TextView
+        android:id="@+id/lb_possivel_diagnostico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lb_nome_paciente_diagnostico"
+        android:text="@string/possivel_diagnostico" />
+
+    <android.support.v7.widget.RecyclerView
+        android:orientation="vertical"
+        android:id="@+id/rc_lista_diagnostico"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lb_possivel_diagnostico"
+        android:layout_gravity="center"
+        android:layout_above="@+id/btn_ok_diagnostico">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btn_ok_diagnostico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/PrimaryButton"
+        android:text="@string/ok"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

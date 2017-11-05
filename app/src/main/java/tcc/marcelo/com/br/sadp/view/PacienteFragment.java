@@ -1,13 +1,9 @@
 package tcc.marcelo.com.br.sadp.view;
 
 import android.app.ProgressDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.text.ParseException;
+import java.util.List;
 
 import io.realm.Realm;
 import retrofit2.Call;
@@ -26,12 +22,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.dto.DefaultReponse;
 import tcc.marcelo.com.br.sadp.dto.PacienteDTO;
+import tcc.marcelo.com.br.sadp.dto.PacientesRespone;
 import tcc.marcelo.com.br.sadp.model.Paciente;
+import tcc.marcelo.com.br.sadp.parser.PacienteParser;
 import tcc.marcelo.com.br.sadp.service.IPsiquiatraService;
+import tcc.marcelo.com.br.sadp.util.ActivityUtil;
 import tcc.marcelo.com.br.sadp.util.FragmentManagerUtil;
 import tcc.marcelo.com.br.sadp.util.Mask;
 import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
-import tcc.marcelo.com.br.sadp.util.StringUtil;
 import tcc.marcelo.com.br.sadp.view.dialog.ErroConexaoDialog;
 
 /**
@@ -39,7 +37,7 @@ import tcc.marcelo.com.br.sadp.view.dialog.ErroConexaoDialog;
  */
 public class PacienteFragment extends MyFragment {
 
-    private HomeActivity mainActivity;
+    private HomeActivity homeActivity;
     private Paciente paciente;
     private EditText txtNome;
     private EditText txtDataEntrada;
@@ -49,16 +47,17 @@ public class PacienteFragment extends MyFragment {
     private IPsiquiatraService psiquiatraService;
     private ProgressDialog mProgress;
     private SharedPreferencesUtil sharedPreferencesUtil;
+    private Realm realm;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.paciente_fragment, container, false);
-        mainActivity = ((HomeActivity) getActivity());
-        paciente = mainActivity.getPaciente();
+        homeActivity = ((HomeActivity) getActivity());
+        paciente = homeActivity.getPaciente();
 
-        mainActivity.getSupportActionBar().setTitle("CADASTRAR PACIENTE");
-        mainActivity.setDrawerState(false);
+        homeActivity.getSupportActionBar().setTitle("CADASTRAR PACIENTE");
+        homeActivity.setDrawerState(false);
 
         txtNome = (EditText) fragment.findViewById(R.id.txt_nome_paciente);
         txtDataEntrada = (EditText) fragment.findViewById(R.id.txt_data_entrada);
@@ -81,12 +80,12 @@ public class PacienteFragment extends MyFragment {
                 .build();
 
         psiquiatraService = retrofit.create(IPsiquiatraService.class);
-        sharedPreferencesUtil = new SharedPreferencesUtil(mainActivity);
+        sharedPreferencesUtil = new SharedPreferencesUtil(homeActivity);
 
         btnCadastrarAtualizarPaciente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgress = ProgressDialog.show(mainActivity, "", "Salvando paciente");
+                mProgress = ProgressDialog.show(homeActivity, "", "Salvando paciente");
                 final PacienteDTO p = new PacienteDTO();
                 p.setNome(txtNome.getText().toString());
                 p.setDescricao(txtDescricao.getText().toString());
@@ -102,7 +101,7 @@ public class PacienteFragment extends MyFragment {
                             DefaultReponse body = response.body();
                             Log.i("INFO", "resposta: " + body.getCodigo() + " - " + body.getMensagem());
                             if(body.getCodigo().equals("000")){
-                                FragmentManagerUtil.popBackStack(mainActivity);
+                                FragmentManagerUtil.trocarFragment(homeActivity, new ListaPacientesFragment());
                             }
                         }
                     }
@@ -122,11 +121,12 @@ public class PacienteFragment extends MyFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mainActivity.setDrawerState(true);
+        homeActivity.setDrawerState(true);
     }
 
     @Override
     public String getFragmentTag() {
         return "PacienteFragment";
     }
+
 }

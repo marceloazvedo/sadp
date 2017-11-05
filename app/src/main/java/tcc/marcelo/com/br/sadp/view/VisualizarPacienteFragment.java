@@ -33,6 +33,7 @@ import tcc.marcelo.com.br.sadp.service.IPsiquiatraService;
 import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
 import tcc.marcelo.com.br.sadp.util.StringUtil;
 import tcc.marcelo.com.br.sadp.view.adapter.AtendimentoAdapter;
+import tcc.marcelo.com.br.sadp.view.dialog.DiagnosticoDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.ErroConexaoDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.IniciarConsultaDialog;
 
@@ -53,10 +54,11 @@ public class VisualizarPacienteFragment extends MyFragment {
     private ProgressDialog mProgress;
     private SharedPreferencesUtil sharedPreferencesUtil;
     private List<Consulta> consultas;
+    private Button btnDiagnostico;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, final Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.visualizar_paciente_fragment, container, false);
         homeActivity = (HomeActivity) getActivity();
         this.paciente = homeActivity.getPaciente();
@@ -80,7 +82,22 @@ public class VisualizarPacienteFragment extends MyFragment {
             @Override
             public void onClick(View v) {
                 IniciarConsultaDialog iniciarConsultaDialog = new IniciarConsultaDialog();
+                Bundle bundle = new Bundle();
+                bundle.putAll(getArguments());
+                iniciarConsultaDialog.setArguments(bundle);
                 iniciarConsultaDialog.show(getFragmentManager(), "missiles");
+            }
+        });
+
+        btnDiagnostico = (Button) fragment.findViewById(R.id.btn_diagnostico);
+        btnDiagnostico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DiagnosticoDialog diagnosticoDialog = new DiagnosticoDialog();
+                Bundle bundle = new Bundle();
+                bundle.putAll(getArguments());
+                diagnosticoDialog.setArguments(bundle);
+                diagnosticoDialog.show(getFragmentManager(), "missiles");
             }
         });
 

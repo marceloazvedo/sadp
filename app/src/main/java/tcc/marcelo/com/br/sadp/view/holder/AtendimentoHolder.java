@@ -11,7 +11,7 @@ import tcc.marcelo.com.br.sadp.model.Consulta;
 import tcc.marcelo.com.br.sadp.util.StringUtil;
 
 /**
- * Created by MArcelo S. de Azevedo on 06/10/2017.
+ * Created by marcelo on 06/10/2017.
  */
 public class AtendimentoHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
@@ -54,7 +54,7 @@ public class AtendimentoHolder extends RecyclerView.ViewHolder implements View.O
     public void setConsulta(Consulta consulta) {
         this.consulta = consulta;
         this.dataConsulta.setText(consulta.getDataConsulta());
-        this.horaInicio.setText(consulta.getHoraTermino());
+        this.horaInicio.setText(consulta.getHoraInicio());
         this.horaTermino.setText(consulta.getHoraTermino());
         this.descricao.setText(consulta.getDescricao());
     }

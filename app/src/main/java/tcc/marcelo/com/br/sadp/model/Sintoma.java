@@ -30,4 +30,20 @@ public class Sintoma extends RealmObject implements Serializable {
     public void setDescrica(String descrica) {
         this.descrica = descrica;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sintoma sintoma = (Sintoma) o;
+
+        return id.equals(sintoma.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

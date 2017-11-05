@@ -19,6 +19,10 @@ public class StringUtil {
         return new SimpleDateFormat("HH:mm:ss").format(date.getTime());
     }
 
+    public static String getHoraEMinuto(Date date){
+        return new SimpleDateFormat("HH:mm").format(date.getTime());
+    }
+
     public static Date getData(String data) throws ParseException {
         return new SimpleDateFormat("dd/MM/yyyy").parse(data);
     }

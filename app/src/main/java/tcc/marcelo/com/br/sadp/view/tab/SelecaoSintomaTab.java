@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.dto.CaracteristicasResponse;
 import tcc.marcelo.com.br.sadp.dto.ConsultasResponse;
+import tcc.marcelo.com.br.sadp.enums.TipoSintomaAdapter;
 import tcc.marcelo.com.br.sadp.model.Sintoma;
 import tcc.marcelo.com.br.sadp.parser.ConsultaParser;
 import tcc.marcelo.com.br.sadp.parser.SintomaParser;
 import tcc.marcelo.com.br.sadp.service.IPsiquiatraService;
+import tcc.marcelo.com.br.sadp.singleton.GerenciadorSelecaoSintomas;
 import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
 import tcc.marcelo.com.br.sadp.view.adapter.AtendimentoAdapter;
 import tcc.marcelo.com.br.sadp.view.adapter.SintomaAdapter;
@@ -44,8 +48,12 @@ public class SelecaoSintomaTab extends Fragment {
     private ProgressDialog mProgress;
     private SharedPreferencesUtil sharedPreferencesUtil;
     private List<Sintoma> sintomas;
+    private List<Sintoma> todosSintomas;
     private View view;
     private RecyclerView recyclerViewSintomas;
+    private SintomaAdapter adapterTodosSintomas;
+    private ImageButton imgButtonBuscar;
+    private EditText txtBusca;
 
     @Nullable
     @Override
@@ -57,9 +65,31 @@ public class SelecaoSintomaTab extends Fragment {
         recyclerViewSintomas.setItemAnimator(new DefaultItemAnimator());
         recyclerViewSintomas.setLayoutManager(layoutManager);
 
-        recyclerViewSintomas.setAdapter(new SintomaAdapter(sintomas));
+        adapterTodosSintomas = new SintomaAdapter(sintomas, TipoSintomaAdapter.ADD);
+        recyclerViewSintomas.setAdapter(adapterTodosSintomas);
 
         buscarSintomas();
+
+        txtBusca = (EditText) view.findViewById(R.id.txt_buscar_sintoma);
+        imgButtonBuscar = (ImageButton) view.findViewById(R.id.img_btn_buscar);
+        imgButtonBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String busca = txtBusca.getText().toString();
+                if(busca == null || busca.equals("")){
+                    adapterTodosSintomas.setSintomas(todosSintomas);
+                } else {
+                    List<Sintoma> resultado = new ArrayList<Sintoma>();
+                    for(Sintoma sintoma : todosSintomas){
+                        if(sintoma.getDescrica().toLowerCase().contains(busca.toLowerCase())){
+                            resultado.add(sintoma);
+                        }
+                    }
+                    adapterTodosSintomas.setSintomas(resultado);
+                }
+                adapterTodosSintomas.notifyDataSetChanged();
+            }
+        });
 
         return view;
     }
@@ -81,7 +111,9 @@ public class SelecaoSintomaTab extends Fragment {
                 CaracteristicasResponse body = response.body();
 
                 sintomas = SintomaParser.parserList(body.getCaracteristicas());
-                recyclerViewSintomas.setAdapter(new SintomaAdapter(sintomas));
+                todosSintomas = SintomaParser.parserList(body.getCaracteristicas());
+                adapterTodosSintomas.setSintomas(sintomas);
+                adapterTodosSintomas.notifyDataSetChanged();
 
                 mProgress.dismiss();
             }
@@ -103,4 +135,13 @@ public class SelecaoSintomaTab extends Fragment {
     public void setSintomas(List<Sintoma> sintomas) {
         this.sintomas = sintomas;
     }
+
+    public SintomaAdapter getAdapterTodosSintomas() {
+        return adapterTodosSintomas;
+    }
+
+    public void setAdapterTodosSintomas(SintomaAdapter adapterTodosSintomas) {
+        this.adapterTodosSintomas = adapterTodosSintomas;
+    }
+
 }

@@ -98,6 +98,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     DialogFragment confirmarDialog = new DeletarPacienteDialog();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("paciente", paciente.getId());
+                    confirmarDialog.setArguments(bundle);
                     confirmarDialog.show(getFragmentManager(), "missiles");
                     return false;
                 }
@@ -116,7 +119,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             visualizar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("paciente", paciente.getId());
                     VisualizarPacienteFragment visualizarPacienteFragment = new VisualizarPacienteFragment();
+                    visualizarPacienteFragment.setArguments(bundle);
                     FragmentManagerUtil.trocarFragment(HomeActivity.this, visualizarPacienteFragment);
                     return false;
                 }

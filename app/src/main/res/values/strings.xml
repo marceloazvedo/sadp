@@ -31,6 +31,8 @@
     <string name="novo">Novo</string>
     <string name="nova_consulta">NOVA CONSULTA</string>
 
+    <string name="paciente">Paciente:</string>
+
 
     <string name="editar">Editar</string>
     <string name="cadastrar">Cadastrar</string>
@@ -51,6 +53,7 @@
     <string name="deseja_finalizar_consulta">Deseja mesmo finalizar a consulta?</string>
     <string name="erro_conexao">Problema na conexão com o servidor</string>
     <string name="sincronizando">Sincronizando, aguarde!</string>
+    <string name="buscar_diagnostico">Buscar o possível diagnóstico para esse paciente?</string>
 
     <!-- pacientes -->
     <string name="data_entrada">Data entrada</string>
@@ -72,5 +75,11 @@
     <string name="sintomas">Lista de sintomas</string>
     <string name="sintomas_selecionados">Sintomas selecionados</string>
     <string name="finalizar_consulta">FINALIZAR CONSULTA</string>
+
+    <string name="diagnostico">Realizar diagnóstico</string>
+
+    <string name="possivel_diagnostico">Possível diagnóstico</string>
+
+    <string name="buscar">Buscar...</string>
 
 </resources>

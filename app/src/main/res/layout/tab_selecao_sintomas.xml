@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,13 +11,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sintomas"
-        android:layout_margin="5dp"/>]
+        android:layout_margin="5dp"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_buscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lb_lista_sintomas"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/img_btn_buscar">
+
+        <EditText
+            android:id="@+id/txt_buscar_sintoma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/buscar" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/img_btn_buscar"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search_white"
+        android:layout_below="@+id/lb_lista_sintomas"
+        android:layout_alignEnd="@+id/lb_lista_sintomas"
+        android:layout_above="@+id/rv_lista_sintomas"
+        android:theme="@style/PrimaryButton"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_lista_sintomas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/lb_lista_sintomas">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/til_buscar">
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
