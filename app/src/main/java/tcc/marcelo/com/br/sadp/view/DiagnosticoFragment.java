@@ -98,10 +98,6 @@ public class DiagnosticoFragment extends MyFragment {
                 DiagnosticoResponse diagnosticoResponse = response.body();
 
                 esquizofrenias = diagnosticoResponse.getDiagnostico();
-                Log.i("INFO", "Quantidade de esquizofrenias: " + diagnosticoResponse.getDiagnostico().size());
-                for(EsquizofreniaDiagnosticoDTO e : esquizofrenias){
-                    Log.i("INFO", "Esquizofrenia: " + e.getEsquizofrenia() + " percentual: " + e.getPercentual());
-                }
                 nomePaciente = diagnosticoResponse.getPaciente();
                 lbNomePaciente.setText(nomePaciente);
 

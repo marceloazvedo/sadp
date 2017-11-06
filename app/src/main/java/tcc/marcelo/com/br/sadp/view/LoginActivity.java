@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        getSupportActionBar().hide();
     }
 
     private void populateAutoComplete() {
@@ -203,6 +204,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     if(usuario.getCodigo().equals("000")){
                         Toast.makeText(LoginActivity.this, "Seja bem vindo " + usuario.getNome(), Toast.LENGTH_SHORT).show();
                         sharedPreferencesUtil.addString(SharedPreferencesUtil.TOKEN, usuario.getToken());
+                        sharedPreferencesUtil.addString(SharedPreferencesUtil.NOME_USUARIO, usuario.getNome());
+                        sharedPreferencesUtil.addString(SharedPreferencesUtil.TIPO_USUARIO, usuario.getTipoUsuario());
                         startHomeActivity();
                     } else {
                         // Check for a valid password, if the user entered one.

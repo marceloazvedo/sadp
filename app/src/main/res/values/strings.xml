@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SADP</string>
+    <string name="app_name">SADE</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -43,6 +43,8 @@
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
     <string name="ok">OK</string>
+
+    <string name="titulo_app">SISTEMA DE APOIO AO DIAGNÓSTICO ESQUIZOFRÊNICO</string>
 
 
     <!-- Mensagens dialog -->

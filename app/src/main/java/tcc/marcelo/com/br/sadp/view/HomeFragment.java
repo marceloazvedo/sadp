@@ -39,7 +39,7 @@ public class HomeFragment extends MyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.home_fragment, container, false);
-        ((HomeActivity) getActivity()).getSupportActionBar().setTitle("SADP");
+        ((HomeActivity) getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
         mainActivity =(HomeActivity) getActivity();
 
         sharedPreferencesUtil = new SharedPreferencesUtil(mainActivity);

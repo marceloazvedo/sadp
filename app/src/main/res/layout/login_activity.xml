@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,44 +11,71 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="tcc.marcelo.com.br.sadp.view.LoginActivity">
 
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/titulo_app"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/diagnostico"
+        android:layout_below="@+id/titulo"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/login" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textInputLayout6">
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayout6"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textInputLayout3">
+
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/email_sign_in_button"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
         android:text="@string/action_sign_in_short"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="100dp"
+        android:theme="@style/PrimaryButton"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textInputLayout3"
-        android:layout_alignParentStart="true">
-
-        <EditText
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_login" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
+    <EditText
+        android:id="@+id/senha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/email_sign_in_button"
         android:layout_alignParentStart="true"
-        android:id="@+id/textInputLayout3">
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword" />
 
-        <EditText
-            android:id="@+id/senha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
-            android:inputType="textPassword"/>
-    </android.support.design.widget.TextInputLayout>
-
-
+    <EditText
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/senha"
+        android:layout_alignParentStart="true"
+        android:hint="@string/prompt_login" />
 
 </RelativeLayout>

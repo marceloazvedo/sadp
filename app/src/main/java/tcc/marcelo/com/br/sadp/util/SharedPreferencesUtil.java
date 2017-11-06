@@ -16,6 +16,8 @@ public class SharedPreferencesUtil {
 
     private static final String SHARED_PREFERENCES_APP = "sadp_prefecences";
     public static final String TOKEN = "token";
+    public static final String NOME_USUARIO = "nome_usuario";
+    public static final String TIPO_USUARIO = "tipo_usuario";
 
     public SharedPreferencesUtil(Context context) {
         this.context = context;

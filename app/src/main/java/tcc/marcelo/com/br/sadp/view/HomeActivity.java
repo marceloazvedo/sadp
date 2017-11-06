@@ -14,11 +14,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.model.Paciente;
+import tcc.marcelo.com.br.sadp.util.SharedPreferencesUtil;
 import tcc.marcelo.com.br.sadp.view.dialog.DeletarPacienteDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.FecharAppDialog;
 import tcc.marcelo.com.br.sadp.view.dialog.LogoutDialog;
@@ -34,10 +37,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle = null;
     private boolean isDrawerLocked = false;
     private Paciente paciente = null;
+    private SharedPreferencesUtil sharedPreferencesUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferencesUtil = new SharedPreferencesUtil(this);
 
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().build();
@@ -60,6 +66,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerLayout = navigationView.getHeaderView(0);
+
+        TextView nomeUsuario = (TextView) headerLayout.findViewById(R.id.nome_usuario);;
+        nomeUsuario.setText(sharedPreferencesUtil.getString(SharedPreferencesUtil.NOME_USUARIO));
+        TextView tipoUsuario = (TextView) headerLayout.findViewById(R.id.tipo_usuario);
+        tipoUsuario.setText(sharedPreferencesUtil.getString(SharedPreferencesUtil.TIPO_USUARIO));
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManagerUtil.trocarFragment(this, new HomeFragment());

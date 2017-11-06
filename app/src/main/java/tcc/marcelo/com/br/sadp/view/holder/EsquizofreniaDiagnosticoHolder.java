@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 import tcc.marcelo.com.br.sadp.R;
 import tcc.marcelo.com.br.sadp.dto.EsquizofreniaDiagnosticoDTO;
 
@@ -34,7 +36,9 @@ public class EsquizofreniaDiagnosticoHolder extends RecyclerView.ViewHolder {
     public void setEsquizofrenia(EsquizofreniaDiagnosticoDTO esquizofrenia) {
         this.esquizofrenia = esquizofrenia;
         this.lbNomeEsquizofrenia.setText(esquizofrenia.getEsquizofrenia());
-        this.lbPercentual.setText(esquizofrenia.getPercentual().toString());
+        DecimalFormat format = new DecimalFormat("#.##");
+        String percentual = format.format(esquizofrenia.getPercentual()).replace(".", "").concat(" %");
+        this.lbPercentual.setText(percentual);
         this.progressBar.setProgress(esquizofrenia.getPercentual().intValue());
     }
 }
